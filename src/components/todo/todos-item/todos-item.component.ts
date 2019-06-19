@@ -1,6 +1,9 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/interfaces/app.reducers';
 import { Todo } from 'src/models/todo.model';
+import { DeleteTodoAction, EditTodoAction, ToggleTodoAction } from '../todo.actions';
 
 @Component({
   selector: 'app-todos-item',
@@ -15,13 +18,16 @@ export class TodosItemComponent implements OnInit {
 
   editing: boolean;
 
-  constructor() {}
+  constructor(private store: Store<AppState>) {}
 
   ngOnInit() {
-    console.log(this.todo);
-
     this.chkField = new FormControl(this.todo.completed);
     this.txtInput = new FormControl(this.todo.text, Validators.required);
+
+    this.chkField.valueChanges.subscribe(() => {
+      const action = new ToggleTodoAction(this.todo.id);
+      this.store.dispatch(action);
+    });
   }
 
   /**
@@ -39,5 +45,24 @@ export class TodosItemComponent implements OnInit {
    */
   finishEditing() {
     this.editing = false;
+
+    if (this.txtInput.invalid) {
+      return;
+    }
+
+    if (this.txtInput.value === this.todo.text) {
+      return;
+    }
+
+    const action = new EditTodoAction(this.todo.id, this.txtInput.value);
+    this.store.dispatch(action);
+  }
+
+  /**
+   * Delete a task
+   */
+  deleteTodo() {
+    const action = new DeleteTodoAction(this.todo.id);
+    this.store.dispatch(action);
   }
 }

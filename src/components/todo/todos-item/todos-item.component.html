@@ -3,7 +3,14 @@
   <div class="view">
     <input class="toggle" type="checkbox" [formControl]="chkField" [checked]="todo.completed" />
     <label (dblclick)="editTodo()">{{ todo.text }}</label>
-    <button class="destroy"></button>
+    <button (click)="deleteTodo()" class="destroy"></button>
   </div>
-  <input [formControl]="txtInput" (blur)="finishEditing()" class="edit" [value]="todo.text" #txtInputEdit />
+  <input
+    [formControl]="txtInput"
+    (keyup.enter)="finishEditing()"
+    (blur)="finishEditing()"
+    class="edit"
+    [value]="todo.text"
+    #txtInputEdit
+  />
 </li>
