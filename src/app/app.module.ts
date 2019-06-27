@@ -11,6 +11,7 @@ import { TodosFooterComponent } from '../components/todo/todos-footer/todos-foot
 import { TodosItemComponent } from '../components/todo/todos-item/todos-item.component';
 import { TodosListComponent } from '../components/todo/todos-list/todos-list.component';
 import { appReducers } from '../interfaces/app.reducers';
+import { FilterPipe } from '../pipes/filter/filter.pipe';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
@@ -22,7 +23,8 @@ import { AppComponent } from './app.component';
     TodosAddComponent,
     TodosFooterComponent,
     TodosItemComponent,
-    TodosListComponent
+    TodosListComponent,
+    FilterPipe
   ],
   imports: [
     BrowserModule,

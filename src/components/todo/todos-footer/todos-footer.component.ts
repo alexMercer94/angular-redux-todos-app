@@ -33,6 +33,14 @@ export class TodosFooterComponent implements OnInit {
   }
 
   /**
+   * Review this function
+   */
+  /* deleteAll() {
+    const action = new DELETE_ALL_TODO();
+    this.store.dispatch(action);
+  } */
+
+  /**
    * Count Pending tasks
    */
   countPendants(todos: Todo[]) {
